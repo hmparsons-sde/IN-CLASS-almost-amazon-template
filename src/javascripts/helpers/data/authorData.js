@@ -6,10 +6,18 @@ const dbUrl = firebaseConfig.databaseURL;
 // GET AUTHORS
 const getAuthors = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/authors.json`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch((error) => reject(error));
+    .then((response) => {
+      if (response.data) {
+     const authorsArray = Object.values(response.data);
+     resolve(authorsArray);
+      } else {
+      resolve([]);
+    }
+  }) .catch((error) => reject(error));
 });
-// DELETE AUTHOR
+
+// document.querySelector('#authors').addEventListener
+// // DELETE AUTHOR
 // CREATE AUTHOR
 // UPDATE AUTHOR
 // SEARCH AUTHORS
