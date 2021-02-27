@@ -9,10 +9,20 @@ const getBooks = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+// CREATE BOOK
+const createBook = (bookObject) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/books.json`, bookObject)
+    .then((response) => {
+      const body = { firebaseKey: response.data.name };
+      axios.patch(`${dbUrl}/books/${response.data.name}.json`, body)
+        .then(() => {
+          getBooks().then((booksArray) => resolve(booksArray));
+        });
+    }).catch((error) => reject(error));
+});
 // resolve array with all the values in it
 
-export default getBooks;
+export default { getBooks, createBook };
 // DELETE BOOK
-// CREATE BOOK
-// UPDATE BOOK
+// UPDATE BOOK - update firebase url with postman patch - firebasekey
 // SEARCH BOOKS

@@ -1,4 +1,4 @@
-import { getAuthors } from '../../helpers/data/authorData';
+import getAuthors from '../../helpers/data/authorData';
 
 const selectAuthor = () => {
   let domString = `<label for="author">Select an Author</label>
@@ -10,7 +10,7 @@ const selectAuthor = () => {
       domString += `<option value="${author.firebaseKey}">${author.first_name} ${author.last_name}</option>`;
     });
 
-    domString += '</select>';
+    domString += '</select>'; // nest the for loop inside of the innerHTML
 
     document.querySelector('#select-author').innerHTML = domString;
   });
